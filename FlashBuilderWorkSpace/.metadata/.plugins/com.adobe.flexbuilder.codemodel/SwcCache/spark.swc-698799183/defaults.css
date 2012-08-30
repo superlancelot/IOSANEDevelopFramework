@@ -1,0 +1,280 @@
+/*
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2008 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+@namespace "library://ns.adobe.com/flex/spark";
+
+/* Default Skins */
+
+Application
+{
+    backgroundColor: #FFFFFF;
+    skinClass: ClassReference("spark.skins.spark.ApplicationSkin");
+}
+
+BorderContainer
+{
+    backgroundColor: #FFFFFF;
+    borderStyle : "solid"; 
+    cornerRadius: 0;
+    skinClass: ClassReference("spark.skins.spark.BorderContainerSkin");
+}
+
+Button
+{
+    skinClass: ClassReference("spark.skins.spark.ButtonSkin");
+}
+
+Button.emphasized
+{
+    skinClass: ClassReference("spark.skins.spark.DefaultButtonSkin");
+}
+
+ButtonBar
+{
+    skinClass: ClassReference("spark.skins.spark.ButtonBarSkin");
+}
+
+CheckBox
+{
+    skinClass: ClassReference("spark.skins.spark.CheckBoxSkin");
+}
+
+ComboBox
+{
+/*  dropShadowVisible: true; in spark.css */
+    paddingBottom: 3;
+    paddingLeft: 3;
+    paddingRight: 3;
+    paddingTop: 5;
+    skinClass: ClassReference("spark.skins.spark.ComboBoxSkin");
+}
+
+DataGrid
+{
+    skinClass: ClassReference("spark.skins.spark.DataGridSkin");
+    stretchCursor: Embed(source="Assets.swf",symbol="cursorStretch");    
+}
+
+DropDownList
+{
+/*  dropShadowVisible: true; in spark.css */
+    skinClass: ClassReference("spark.skins.spark.DropDownListSkin");
+}
+
+Form
+{
+    skinClass : ClassReference("spark.skins.spark.FormSkin");
+}
+
+FormHeading
+{
+    fontSize : 15;
+    fontWeight : "bold";
+    skinClass : ClassReference("spark.skins.spark.FormHeadingSkin");
+}
+
+FormItem
+{
+    errorIndicatorSource : Embed(source="assets/ErrorIndicator.png");
+    requiredIndicatorSource : Embed(source="assets/RequiredIndicator.png");
+    skinClass : ClassReference("spark.skins.spark.FormItemSkin");
+}
+
+GridColumnHeaderGroup
+{
+    separatorAffordance: 5;
+}
+
+HScrollBar
+{
+    skinClass: ClassReference("spark.skins.spark.HScrollBarSkin");
+}
+
+HSlider
+{
+    skinClass: ClassReference("spark.skins.spark.HSliderSkin");
+}
+
+Image
+{
+    skinClass: ClassReference("spark.skins.spark.ImageSkin");
+    enableLoadingState: false;
+    showErrorSkin : false;
+    smoothingQuality: "default";
+}
+
+List
+{
+    skinClass: ClassReference("spark.skins.spark.ListSkin");
+    dragIndicatorClass: ClassReference("spark.components.supportClasses.ListItemDragProxy");
+    dropIndicatorSkin: ClassReference("spark.skins.spark.ListDropIndicator");
+}
+
+MuteButton
+{
+    skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.MuteButtonSkin");
+}
+
+NumericStepper
+{
+    skinClass: ClassReference("spark.skins.spark.NumericStepperSkin");
+}
+
+Panel
+{
+    backgroundColor: #FFFFFF;
+/* in spark.css */
+/*
+    borderAlpha: 0.5;
+    borderColor: 0;
+    cornerRadius: 0;
+    dropShadowVisible: true;
+*/
+	skinClass: ClassReference("spark.skins.spark.PanelSkin");
+}
+
+RadioButton
+{
+	skinClass: ClassReference("spark.skins.spark.RadioButtonSkin");
+}
+
+RichEditableText
+{
+    layoutDirection: "ltr";
+}
+
+Scroller
+{
+    skinClass: ClassReference("spark.skins.spark.ScrollerSkin");
+}
+
+ScrubBar
+{
+    skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.ScrubBarSkin");
+}
+
+SkinnableDataContainer
+{
+    skinClass: ClassReference("spark.skins.spark.SkinnableDataContainerSkin");
+}
+
+SkinnableComponent
+{
+    errorSkin: ClassReference("spark.skins.spark.ErrorSkin");
+    focusSkin: ClassReference("spark.skins.spark.FocusSkin");
+}
+
+SkinnableContainer
+{
+    skinClass: ClassReference("spark.skins.spark.SkinnableContainerSkin");
+}
+
+SkinnablePopUpContainer
+{
+    skinClass: ClassReference("spark.skins.spark.SkinnablePopUpContainerSkin");
+}
+
+SkinnableTextBase:normalWithPrompt 
+{
+    color: #BABABA;
+    fontStyle: italic;
+}
+
+SkinnableTextBase:disabledWithPrompt 
+{
+    color: #BABABA;
+    fontStyle: italic;
+}
+
+Spinner
+{
+    skinClass: ClassReference("spark.skins.spark.SpinnerSkin");    
+}
+
+TabBar
+{
+    skinClass: ClassReference("spark.skins.spark.TabBarSkin");
+    cornerRadius: 4;
+}
+
+TextBase
+{
+    layoutDirection: "ltr";
+}
+
+TextArea
+{
+    paddingBottom: 3;
+    paddingLeft: 3;
+    paddingRight: 3;
+    paddingTop: 5;
+	skinClass: ClassReference("spark.skins.spark.TextAreaSkin");
+}
+
+TextInput
+{
+    paddingBottom: 3;
+    paddingLeft: 3;
+    paddingRight: 3;
+    paddingTop: 5;
+	skinClass: ClassReference("spark.skins.spark.TextInputSkin");
+}
+
+TitleWindow
+{
+/* in spark.css */
+/*
+	borderAlpha: 0.8;
+	borderColor: 0;
+	cornerRadius: 0;
+	dropShadowVisible: true;
+*/
+	skinClass: ClassReference("spark.skins.spark.TitleWindowSkin");
+}
+
+ToggleButton
+{
+	skinClass: ClassReference("spark.skins.spark.ToggleButtonSkin");
+}
+
+VideoDisplay
+{
+    layoutDirection: "ltr";
+}
+
+VideoPlayer
+{
+/*  dropShadowVisible: true; in spark.css */
+    layoutDirection: "ltr";
+    skinClass: ClassReference("spark.skins.spark.VideoPlayerSkin");
+}
+
+VolumeBar
+{
+    skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.VolumeBarSkin");
+}
+
+VScrollBar
+{
+    skinClass: ClassReference("spark.skins.spark.VScrollBarSkin");
+}
+
+VSlider
+{
+    skinClass: ClassReference("spark.skins.spark.VSliderSkin");
+}
+
+global
+{
+    softKeyboardEffectDuration: 150;
+}

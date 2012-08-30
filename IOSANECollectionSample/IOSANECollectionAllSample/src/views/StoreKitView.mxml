@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="HomeView" creationComplete="view1_creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import com.adobe.anesdk.components.gamecenter.GameCenterExtensionContext;
+			import com.adobe.anesdk.components.storekit.ISKExtensionContext;
+			import com.adobe.anesdk.components.storekit.SKExtensionContext;
+			import com.adobe.anesdk.components.storekit.StoreKitHelper;
+			import com.adobe.anesdk.components.storekit.core.SKPaymentQueue;
+			import com.adobe.anesdk.components.storekit.core.SKPaymentTransaction;
+			import com.adobe.anesdk.components.storekit.core.SKPaymentTransactionState;
+			import com.adobe.anesdk.components.storekit.core.SKProduct;
+			import com.adobe.anesdk.components.storekit.core.SKProductsResponse;
+			
+			import mx.events.FlexEvent;
+			
+			private var products:Array;
+			
+			protected function view1_creationCompleteHandler(event:FlexEvent):void
+			{
+				//SKExtensionContext.localTest = true;
+				
+				traceOutput.text += "\r view1_creationComplete";
+				
+				if(StoreKitHelper.isPaymentAllowed())
+				{
+					traceOutput.text += "\rPayment Allowed";
+					StoreKitHelper.instance.transactionsUpdatedCallBack = sk_TransactionsUpdatedCallBack;
+				}
+				else
+				{
+					traceOutput.text += "\rPayment NOT Allowed";
+					return;
+				}
+				StoreKitHelper.instance.getProducts([	"com.adobe.anesdk001.consumable001"
+														], sk_GetProductsCallback);
+				
+			}
+			
+			private function sk_GetProductsCallback(products:Array, invalidProductIds:Array):void
+			{
+				this.products = products;
+				traceOutput.text += "\rproducts:";
+				for each(var product:SKProduct in products)
+				{
+					traceOutput.text+= "\r" + product.localizedTitle + ": " + product.price;
+				}
+				
+				traceOutput.text += "\rinvalidProductIds: " + invalidProductIds.join(",");
+			}
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				if(this.products && this.products[0] as SKProduct)
+				{
+					var p:SKProduct = this.products[0] as SKProduct;
+					traceOutput.text += "\rstart purchase " + p.productIdentifier + " ...";
+					StoreKitHelper.instance.purchaseProduct(p.productIdentifier, 1);	
+				}
+				else
+				{
+					traceOutput.text += "\rno available product to purchase"; 
+				}
+			}
+			
+			private function sk_TransactionsUpdatedCallBack(transactions:Array):void
+			{
+				var f:SKPaymentTransactionState;
+				var result:Boolean;
+				for each(var transaction:SKPaymentTransaction in transactions) 
+				{
+					if(transaction.transactionState == SKPaymentTransactionState.SKPaymentTransactionStatePurchasing)
+					{
+						traceOutput.text += "\r" + transaction.payment.quantity.toString() + " " + transaction.payment.productIdentifier + " purchasing...";
+					}
+					if(transaction.transactionState == SKPaymentTransactionState.SKPaymentTransactionStatePurchased)
+					{
+						traceOutput.text += "\r" + transaction.payment.quantity.toString() + " " + transaction.payment.productIdentifier + " purchased";
+						result = StoreKitHelper.instance.finishTransaction(transaction);
+						traceOutput.text += " and " + String(result ? "been closed." : "still open");
+					}
+					else if(transaction.transactionState == SKPaymentTransactionState.SKPaymentTransactionStateFailed)
+					{
+						traceOutput.text += "\r" + transaction.payment.quantity.toString() + " " + transaction.payment.productIdentifier + " failed";
+						result = StoreKitHelper.instance.finishTransaction(transaction);
+						traceOutput.text += " and " + String(result ? "been closed." : "still open");
+					}
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Label id="traceOutput" left="10" right="10" top="20" bottom="10" fontFamily="Arial"
+			 fontSize="14" text="starting..."/>
+	<s:Button x="259" y="0" width="61" height="21" label="buy" fontSize="12" click="button1_clickHandler(event)"/>
+</s:View>

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ns.adobe.com/air/extension/2.5"
+	xmlns="http://ns.adobe.com/air/extension/2.5"
+	elementFormDefault="qualified"
+>
+  <xs:element name="extension">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="id">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:pattern value="[A-Za-z0-9\-\.]{1,212}"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+
+        <xs:element name="name" type="LocalizableType" minOccurs="0"/>
+        <xs:element name="description" type="LocalizableType" minOccurs="0"/>
+        <xs:element name="copyright" type="xs:string" minOccurs="0"/>
+        <xs:element name="versionNumber">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <!-- has to be of format <0-999>.<0-999>.<0-999> -->
+              <xs:pattern value='[0-9]{1,3}(\.[0-9]{1,3}){0,2}' />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+
+        <xs:element name="platforms">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="platform" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:choice>
+                    <xs:element name="applicationDeployment">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="nativeLibrary" type="name" minOccurs="0"/>
+                          <xs:element name="initializer" type="name" minOccurs="0"/>
+                          <!-- nativeLibrary and initializer should both be present or both omitted -->
+                          <xs:element name="finalizer" type="name" minOccurs="0"/>
+                          <!-- finalizer can optionally be included if there is a nativeLibrary, otherwise it should be omitted -->
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="deviceDeployment"/>
+                  </xs:choice>
+                  <xs:attribute name="name" type="name"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="name">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z0-9\-\.]{1,255}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="LocalizableType" mixed="true">
+    <xs:sequence>
+      <xs:element name="text" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="lang" type="xs:language" use="required"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

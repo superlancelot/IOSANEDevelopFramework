@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension xmlns="http://ns.adobe.com/air/extension/3.1">
+
+<!-- Adobe AIR Extension Descriptor File Template.
+
+	Specifies parameters for identifying AIR extensions.
+
+	xmlns - The Adobe AIR extension namespace: http://ns.adobe.com/air/extension/3.1
+			The last segment of the namespace specifies the version 
+			of the AIR runtime required for this extension to load.			
+-->
+
+	<!-- A universally unique extension identifier. Must be unique across all AIR extensions.
+	Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleExtension.) Required. -->
+	<id></id>
+
+	<!-- The name of the extension. 
+	May have multiple values for each language. See samples or xsd schema file. Optional. -->
+	<!-- <name></name> -->
+	
+	<!-- A string value of the format <0-999>.<0-999>.<0-999> that represents extension version. 
+	Values can also be 1-part or 2-part. It is not necessary to have a 3-part value. Required.-->
+	<versionNumber>1.0.0</versionNumber>
+		         
+	<!-- Description of the extension.
+	May have multiple values for each language. See samples or xsd schema file. Optional. -->
+	<!-- <description></description> -->
+
+	<!-- Copyright information. Optional -->
+	<!-- <copyright></copyright> -->
+
+	<!-- Specifies the platforms supported by this extension. -->
+	<platforms> 
+		<!-- Specifies the native code library for the extension on a specific platform. -->
+		<!-- The name attribute specifies the name of the platform. The special default platform name allows the extension -->
+		<!-- developer to include an ActionScript library that simulates the behavior of the native code on unsupported platforms. -->
+		<!-- Simulated behavior can be used to support debugging and to provide fall back behavior for multi-platform applications. -->
+		<!-- Child elements specify how the native code library is deployed: applicationDeployment or deviceDeployment. -->
+		<!-- The two deployment types are mutually exclusive; include only one deployment element. -->
+		<platform name="device">
+		<!-- Application deployment means that the code library is deployed with each AIR application that uses it. The code library must be included in the extension package. -->
+			<applicationDeployment>
+				<!-- The native library file included in the extension package for a platform. The nativeLibrary element is not required -->
+				<!-- if the extension contains only ActionScript code. If the nativeLibrary element is not used, the initializer and -->
+				<!-- finalizer elements cannot be used either -->
+				<nativeLibrary></nativeLibrary> 
+				<!-- The initialization function defined in the native library. An initializer element is required if the nativeLibrary element is used. -->
+				<initializer></initializer>
+				<!-- The finalization function defined in the native library. -->
+				<finalizer></finalizer> 
+			</applicationDeployment> 
+		</platform> 
+		<!-- Device deployment means that the code library is deployed separately to the platform and is not included in the extension package. -->
+		<!-- <platform name="device"> 
+			<deviceDeployment/> 
+		</platform> -->
+		<!-- <platform name="default"> 
+			<applicationDeployment/>
+		</platform> -->
+
+	</platforms> 
+	
+</extension>

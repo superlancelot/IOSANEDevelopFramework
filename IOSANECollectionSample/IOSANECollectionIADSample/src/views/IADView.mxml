@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="IADView" creationComplete="IADView_creationComplete(event)">
+	<fx:Script>
+		<![CDATA[
+			import com.adobe.anesdk.components.iad.IADHelper;
+			import com.adobe.anesdk.components.iad.core.ADBannerContentSizeIdentifier;
+			import com.adobe.anesdk.components.iad.core.ADBannerView;
+			
+			import mx.events.FlexEvent;
+			
+			private var isPaused:Boolean = false;
+			private var adBannerView:ADBannerView;
+			protected function IADView_creationComplete(event:FlexEvent):void
+			{
+				traceOutput.text += "\r IADView_creationComplete";
+			}
+			
+			protected function addAdBannerBtn_clickHandler(event:MouseEvent):void
+			{
+				traceOutput.text += "\r create new AdBannerView";
+				
+				var size:Point = IADHelper.instance.getSizeFromBannerContentSizeIdentifier(ADBannerContentSizeIdentifier.Portrait);
+				adBannerView = IADHelper.instance.createNewAdBannerView(iad_adBannerViewCallback, ADBannerContentSizeIdentifier.Portrait, this.stage.height - size.y);
+			}
+			
+			protected function removeAdBannerBtn_clickHandler(event:MouseEvent):void
+			{
+				IADHelper.instance.destoryNewAdBannerView(adBannerView);
+			}
+			
+			private function iad_adBannerViewCallback(userAction:String):void
+			{
+				switch(userAction)
+				{
+					case IADHelper.USER_ACTION_BEGIN:
+						traceOutput.text += "\r USER_ACTION_BEGIN";
+						pause();
+						break;
+					case IADHelper.USER_ACTION_BEGIN_WILL_LEAVE_APP:
+						traceOutput.text += "\r USER_ACTION_BEGIN_WILL_LEAVE_APP";
+						break;
+					case IADHelper.USER_ACTION_FINISHED:
+						traceOutput.text += "\r USER_ACTION_FINISHED";
+						resume();
+						break;
+					default:
+						trace("iad_adBannerViewCallback invalid userAction: " + userAction);
+						break;
+				}
+			}
+			
+			private function pause():void
+			{
+				if(isPaused)
+				{
+					return;
+				}
+				isPaused = true;
+				traceOutput.text += "\r App paused";
+			}
+			
+			private function resume():void
+			{
+				if(!isPaused)
+				{
+					return;
+				}
+				isPaused = false;
+				traceOutput.text += "\r App resumed";
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Label id="traceOutput" left="10" right="10" top="85" bottom="10" fontFamily="Arial"
+			 fontSize="14" text="starting..."/>
+	<s:Button x="68" y="23" label="Add Ad Banner" click="addAdBannerBtn_clickHandler(event)"/>
+	<s:Button x="259" y="23" label="Remove Ad Banner" click="removeAdBannerBtn_clickHandler(event)"/>
+</s:View>
